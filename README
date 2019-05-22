@@ -1,0 +1,29 @@
+I have taken dataset from LendingClub (https://www.lendingclub.com/info/download-data.action). LendingClub is the world's largest peer-to-peer lending platform and it is headquartered in San Francisco, California. LendingClub is a marketplace for personal loans that matches borrowers looking for a loan to the lenders seeking to lend money and make a return.
+
+Borrowers usually fills out an application with the reason for loan along with his past financial history. LendingClub evaluates each borrower's credibility based on his/her payment habits and assigns an interest rate to the borrower. Sometimes, the borrower may default the loans and as a result, there is a higher risk for lenders. 
+
+I have worked on the dataset for the year 2012-13. Based on borrower's financial history, I predited whether a borrower will payoff or default his loans. The dataset contains 188185 observations and 145 predictors. Loan status can be fully paid, charged off, current, in grace period or late (31-120 days). There is no enough data (0.0005%) on current, in grace period or late, so, I have ignored them and I did a binary classification on whether a borrower will be able to pay off his debt or not.
+
+I have used both pandas and pyspark for this project. I used pandas for Data preprocessing, Exploratory data analysis, Correlation, Model Building. After doing all the cleanup, I saved the dataframe as csv file to be read from pyspark for model building.
+
+The metrics I used to evaluate the model is classification accuracy. I downsampled the majority class to match minority class. 
+Accuracy of the model using pandas:
+
+1. Random Forest - 81.4%
+2. Logistic Regression - 78.7%
+3. KNN classifier - 77.7%
+4. Decision Tree Classifier - 82.7%
+
+I used BinaryClassificationEvaluator to evaluate the models of pyspark, which uses areaUnderROC as the default metric.
+For Test set, the AUC scores are as follows.
+1. Logistic Regression model - 0.86
+2. Random Forest Classifier - 0.86
+3. Gradient Boosting - 0.91
+
+Issues:
+
+PySpark
+
+I want to plot roc and precision recall curve. For some reason, trainingSummary.roc.toPandas() and  trainingSummary.pr.toPandas() are not working in my laptop. So, I downloaded spark dataframe of roc and precision-recall as csv file to my local machine and then read from there to plot the roc and precision-recall curve.
+
+I didn't use any third party libraries. 
